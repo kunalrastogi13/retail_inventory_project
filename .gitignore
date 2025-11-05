@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual env
+venv/
+.env/
+
+# Logs
+logs/
+*.log
+
+# Data files
+data/
+exports/
+
+# IDE/OS
+.vscode/
+.DS_Store
+
+# Credentials
+.env
+*.pem__pycache__/
+*.py[cod]
+.venv/
+.env
+.DS_Store
+.vscode/
+logs/
+exports/
+data/**/*.csv
+data/**/*.parquet

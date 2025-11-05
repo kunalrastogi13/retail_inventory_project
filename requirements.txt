@@ -1,0 +1,8 @@
+psycopg2
+sqlalchemy
+kafka-python
+pandas
+pyyaml
+python-dotenv
+jupyter
+faker
