@@ -98,9 +98,13 @@ ON CONFLICT DO NOTHING;
 """)
 print("💰 Sales fact table loaded → retail.fact_sales")
 
+<<<<<<< HEAD
 # ============================================
 # 6️⃣ Log ETL Run
 # ============================================
+=======
+# 6️ Log ETL Run
+>>>>>>> e918a25 (code till sales forecast)
 cursor.execute("""
 INSERT INTO retail.etl_run_log (phase, records_processed, status)
 VALUES ('batch_load', %s, 'SUCCESS')
@@ -109,4 +113,8 @@ VALUES ('batch_load', %s, 'SUCCESS')
 conn.commit()
 cursor.close()
 
+<<<<<<< HEAD
 print("✅ ETL completed & logged successfully!")
+=======
+print(" ETL completed & logged successfully!")
+>>>>>>> e918a25 (code till sales forecast)

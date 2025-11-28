@@ -109,4 +109,8 @@ VALUES ('batch_load', %s, 'SUCCESS')
 conn.commit()
 cursor.close()
 
+<<<<<<< HEAD
 print("✅ ETL completed & logged successfully!")
+=======
+print(" ETL completed & logged successfully!")
+>>>>>>> e918a25 (code till sales forecast)

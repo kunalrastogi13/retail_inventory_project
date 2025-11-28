@@ -4,30 +4,24 @@ from datetime import datetime
 import psycopg2
 import os
 
-# ============================================
 #  Database Connection (Postgres in Docker)
-# ============================================
 engine = create_engine("postgresql://admin:admin123@postgres:5432/retail_db")
 conn = engine.raw_connection()
 cursor = conn.cursor()
 
-print("🚀 Starting batch ETL...")
+print(" Starting batch ETL...")
 
-# ============================================
-# 1️⃣ Load CSV and Normalize Columns
-# ============================================
+# 1️ Load CSV and Normalize Columns
 csv_path = "/app/data/global_superstore.csv"
-print(f"📂 Loading CSV from: {csv_path}")
+print(f" Loading CSV from: {csv_path}")
 
 df = pd.read_csv(csv_path, encoding="latin1")
 
 # Normalize column names
 df.columns = [c.strip().lower().replace(" ", "_").replace("-", "_") for c in df.columns]
-print("✅ Normalized columns:", list(df.columns))
+print(" Normalized columns:", list(df.columns))x``
 
-# ============================================
-# 2️⃣ Load into Staging Schema
-# ============================================
+# 2️ Load into Staging Schema
 df.to_sql(
     "superstore_orders_raw",
     engine,
@@ -35,11 +29,9 @@ df.to_sql(
     if_exists="replace",
     index=False
 )
-print("📥 Loaded → staging.superstore_orders_raw")
+print(" Loaded → staging.superstore_orders_raw")
 
-# ============================================
-# 3️⃣ Load Customer Dimension
-# ============================================
+# 3️ Load Customer Dimension
 cursor.execute("""
 INSERT INTO retail.dim_customer
 (customer_key, customer_name, segment, country, region, city, state, postal_code)
@@ -57,9 +49,7 @@ ON CONFLICT (customer_key) DO NOTHING;
 """)
 print("👤 Customer dimension loaded → retail.dim_customer")
 
-# ============================================
-# 4️⃣ Load Product Dimension (updated)
-# ============================================
+# 4️ Load Product Dimension (updated)
 cursor.execute("""
 INSERT INTO retail.dim_product (product_key, product_id, product_name, category, sub_category)
 SELECT DISTINCT
@@ -73,9 +63,7 @@ ON CONFLICT (product_key) DO NOTHING;
 """)
 print("📦 Product dimension loaded → retail.dim_product")
 
-# ============================================
-# 5️⃣ Load Fact Table — Sales (updated joins)
-# ============================================
+# 5️ Load Fact Table — Sales (updated joins)
 cursor.execute("""
 INSERT INTO retail.fact_sales (
     order_id, product_id, customer_id, order_date, ship_date,
@@ -98,9 +86,7 @@ ON CONFLICT DO NOTHING;
 """)
 print("💰 Sales fact table loaded → retail.fact_sales")
 
-# ============================================
-# 6️⃣ Log ETL Run
-# ============================================
+# 6️ Log ETL Run
 cursor.execute("""
 INSERT INTO retail.etl_run_log (phase, records_processed, status)
 VALUES ('batch_load', %s, 'SUCCESS')
@@ -109,4 +95,4 @@ VALUES ('batch_load', %s, 'SUCCESS')
 conn.commit()
 cursor.close()
 
-print("✅ ETL completed & logged successfully!")
+print(" ETL completed & logged successfully!")

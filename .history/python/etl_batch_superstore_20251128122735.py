@@ -35,11 +35,17 @@ df.to_sql(
     if_exists="replace",
     index=False
 )
+<<<<<<< HEAD
 print("📥 Loaded → staging.superstore_orders_raw")
 
 # ============================================
 # 3️⃣ Load Customer Dimension
 # ============================================
+=======
+print(" Loaded → staging.superstore_orders_raw")
+
+# 3️ Load Customer Dimension
+>>>>>>> e918a25 (code till sales forecast)
 cursor.execute("""
 INSERT INTO retail.dim_customer
 (customer_key, customer_name, segment, country, region, city, state, postal_code)
@@ -57,9 +63,13 @@ ON CONFLICT (customer_key) DO NOTHING;
 """)
 print("👤 Customer dimension loaded → retail.dim_customer")
 
+<<<<<<< HEAD
 # ============================================
 # 4️⃣ Load Product Dimension (updated)
 # ============================================
+=======
+# 4️ Load Product Dimension (updated)
+>>>>>>> e918a25 (code till sales forecast)
 cursor.execute("""
 INSERT INTO retail.dim_product (product_key, product_id, product_name, category, sub_category)
 SELECT DISTINCT
@@ -73,9 +83,13 @@ ON CONFLICT (product_key) DO NOTHING;
 """)
 print("📦 Product dimension loaded → retail.dim_product")
 
+<<<<<<< HEAD
 # ============================================
 # 5️⃣ Load Fact Table — Sales (updated joins)
 # ============================================
+=======
+# 5️ Load Fact Table — Sales (updated joins)
+>>>>>>> e918a25 (code till sales forecast)
 cursor.execute("""
 INSERT INTO retail.fact_sales (
     order_id, product_id, customer_id, order_date, ship_date,
@@ -98,9 +112,13 @@ ON CONFLICT DO NOTHING;
 """)
 print("💰 Sales fact table loaded → retail.fact_sales")
 
+<<<<<<< HEAD
 # ============================================
 # 6️⃣ Log ETL Run
 # ============================================
+=======
+# 6️ Log ETL Run
+>>>>>>> e918a25 (code till sales forecast)
 cursor.execute("""
 INSERT INTO retail.etl_run_log (phase, records_processed, status)
 VALUES ('batch_load', %s, 'SUCCESS')
@@ -109,4 +127,8 @@ VALUES ('batch_load', %s, 'SUCCESS')
 conn.commit()
 cursor.close()
 
+<<<<<<< HEAD
 print("✅ ETL completed & logged successfully!")
+=======
+print(" ETL completed & logged successfully!")
+>>>>>>> e918a25 (code till sales forecast)

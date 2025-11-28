@@ -1,0 +1,10 @@
+database:
+  host: ${POSTGRES_HOST}
+  port: ${POSTGRES_PORT}
+  user: ${POSTGRES_USER}
+  password: ${POSTGRES_PASSWORD}
+  name: ${POSTGRES_DB}
+
+kafka:
+  broker: ${KAFKA_BROKER}
+  topic: ${KAFKA_TOPIC}

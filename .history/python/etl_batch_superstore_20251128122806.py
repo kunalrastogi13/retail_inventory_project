@@ -73,9 +73,13 @@ ON CONFLICT (product_key) DO NOTHING;
 """)
 print("📦 Product dimension loaded → retail.dim_product")
 
+<<<<<<< HEAD
 # ============================================
 # 5️⃣ Load Fact Table — Sales (updated joins)
 # ============================================
+=======
+# 5️ Load Fact Table — Sales (updated joins)
+>>>>>>> e918a25 (code till sales forecast)
 cursor.execute("""
 INSERT INTO retail.fact_sales (
     order_id, product_id, customer_id, order_date, ship_date,
@@ -98,9 +102,13 @@ ON CONFLICT DO NOTHING;
 """)
 print("💰 Sales fact table loaded → retail.fact_sales")
 
+<<<<<<< HEAD
 # ============================================
 # 6️⃣ Log ETL Run
 # ============================================
+=======
+# 6️ Log ETL Run
+>>>>>>> e918a25 (code till sales forecast)
 cursor.execute("""
 INSERT INTO retail.etl_run_log (phase, records_processed, status)
 VALUES ('batch_load', %s, 'SUCCESS')
@@ -109,4 +117,8 @@ VALUES ('batch_load', %s, 'SUCCESS')
 conn.commit()
 cursor.close()
 
+<<<<<<< HEAD
 print("✅ ETL completed & logged successfully!")
+=======
+print(" ETL completed & logged successfully!")
+>>>>>>> e918a25 (code till sales forecast)
