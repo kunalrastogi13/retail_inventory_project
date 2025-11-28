@@ -32,3 +32,4 @@ logs/
 exports/
 data/**/*.csv
 data/**/*.parquet
+.history/
